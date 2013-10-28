@@ -21,7 +21,7 @@ class Sitewards_CmsTeaser_Block_Teaser extends Mage_Core_Block_Template
         $aRequestUriParts = explode('/', Mage::app()->getRequest()->getRequestUri());
         $sCmsPageKey = $aRequestUriParts[count($aRequestUriParts) - 1];
 
-        /* @var $oCmsPage Mage_Cms_Model_Page */
+        /* @var Mage_Cms_Model_Page $oCmsPage */
         $oCmsPage =  Mage::getModel('cms/page')->load($sCmsPageKey, 'identifier');
         if ($oCmsPage->getId()) {
             $sTeaserImgSrc = $oCmsPage->getTeaserImgSrc();

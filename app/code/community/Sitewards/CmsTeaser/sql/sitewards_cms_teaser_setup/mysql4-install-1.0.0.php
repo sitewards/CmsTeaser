@@ -12,7 +12,7 @@ $oInstaller = $this;
 $oInstaller->startSetup();
 
 if ($oInstaller->tableExists($this->getTable('cms/page'))) {
-    /* @var $oConnection Varien_Db_Adapter_Pdo_Mysql */
+    /* @var Varien_Db_Adapter_Pdo_Mysql $oConnection */
     $oConnection = $oInstaller->getConnection();
     $oConnection->addColumn(
         $this->getTable('cms/page'),

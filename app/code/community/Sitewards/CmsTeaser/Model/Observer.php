@@ -20,13 +20,13 @@ class Sitewards_CmsTeaser_Model_Observer
      */
     public function adminhtmlCmsPageEditTabDesignPrepareForm(Varien_Event_Observer $oObserver)
     {
-        /* @var $oForm Varien_Data_Form */
+        /* @var Varien_Data_Form $oForm */
         $oForm = $oObserver->getData('form');
 
-        /* @var $oCmsTeaserHelper Sitewards_CmsTeaser_Helper_Data */
+        /* @var Sitewards_CmsTeaser_Helper_Data $oCmsTeaserHelper */
         $oCmsTeaserHelper = Mage::helper('sitewards_cmsteaser');
 
-        /* @var $oCmsPage Mage_Cms_Model_Page */
+        /* @var Mage_Cms_Model_Page $oCmsPage */
         $oCmsPage = Mage::registry('cms_page');
         $oHeaderFieldset = $oForm->addFieldset(
             'header_fieldset',
@@ -85,7 +85,7 @@ class Sitewards_CmsTeaser_Model_Observer
      */
     protected function uploadImage($oCmsPage)
     {
-        /* @var $oRequest Mage_Core_Controller_Request_Http */
+        /* @var Mage_Core_Controller_Request_Http $oRequest */
         $oRequest = Mage::app()->getRequest();
 
         $bImgDelete = $oRequest->getParam('teaser_img_src_delete');
@@ -103,7 +103,7 @@ class Sitewards_CmsTeaser_Model_Observer
                 $oCmsPage->setData('teaser_img_src', $oCmsPage->getOrigData('teaser_img_src'));
                 if (!empty($aFileInformation['name']) && (file_exists($aFileInformation['tmp_name']))) {
                     try {
-                        /* @var $oUploader Varien_File_Uploader */
+                        /* @var Varien_File_Uploader $oUploader */
                         $oUploader = new Varien_File_Uploader('teaser_img_src');
                         $oUploader->setAllowedExtensions(array('jpg','jpeg','gif','png')); // or pdf or anything
                         $oUploader->setAllowRenameFiles(true);
