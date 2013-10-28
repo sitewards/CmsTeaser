@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ *
+ * @category    Sitewards
+ * @package     Sitewards_CmsTeaser
+ * @copyright   Copyright (c) 2013 Sitewards GmbH (http://www.sitewards.com/)
+ */
+-->
+<config>
+    <modules>
+        <Sitewards_CmsTeaser>
+            <version>1.0.0</version>
+        </Sitewards_CmsTeaser>
+    </modules>
+    <global>
+        <blocks>
+            <sitewards_cmsteaser>
+                <class>Sitewards_CmsTeaser_Block</class>
+            </sitewards_cmsteaser>
+            <adminhtml>
+                <rewrite>
+                    <cms_page_edit_form>Sitewards_CmsTeaser_Block_Adminhtml_Cms_Page_Edit_Form</cms_page_edit_form>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <helpers>
+            <sitewards_cmsteaser>
+                <class>Sitewards_CmsTeaser_Helper</class>
+            </sitewards_cmsteaser>
+        </helpers>
+        <models>
+            <sitewards_cmsteaser>
+                <class>Sitewards_CmsTeaser_Model</class>
+            </sitewards_cmsteaser>
+        </models>
+        <resources>
+            <sitewards_cms_teaser_setup>
+                <setup>
+                    <module>Sitewards_CmsTeaser</module>
+                </setup>
+            </sitewards_cms_teaser_setup>
+        </resources>
+        <page>
+            <layouts>
+                <one_column_with_teaser>
+                    <label>1 column with teaser</label>
+                    <template>sitewards/cmsteaser/page/1columns-teaser.phtml</template>
+                    <layout_handle>page_one_column_with_teaser</layout_handle>
+                </one_column_with_teaser>
+            </layouts>
+        </page>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <sitewards_cmsteaser>
+                    <file>sitewards/cmsteaser.xml</file>
+                </sitewards_cmsteaser>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <events>
+            <adminhtml_cms_page_edit_tab_design_prepare_form>
+                <observers>
+                    <sitewards_cmsteaser>
+                        <class>sitewards_cmsteaser/observer</class>
+                        <method>adminhtmlCmsPageEditTabDesignPrepareForm</method>
+                    </sitewards_cmsteaser>
+                </observers>
+            </adminhtml_cms_page_edit_tab_design_prepare_form>
+            <cms_page_save_before>
+                <observers>
+                    <sitewards_cmsteaser>
+                        <class>sitewards_cmsteaser/observer</class>
+                        <method>cmsPageSaveBefore</method>
+                    </sitewards_cmsteaser>
+                </observers>
+            </cms_page_save_before>
+        </events>
+        <translate>
+            <modules>
+                <Sitewards_CmsTeaser>
+                    <files>
+                        <default>Sitewards_CmsTeaser.csv</default>
+                    </files>
+                </Sitewards_CmsTeaser>
+            </modules>
+        </translate>
+    </adminhtml>
+</config>

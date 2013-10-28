@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * sitewards/cmsteaser.xml
+ * Layout file for the Sitewards CmsTeaser module
+ *
+ * @category    Sitewards
+ * @package     Sitewards_CmsTeaser
+ * @copyright   Copyright (c) 2013 Sitewards GmbH (http://www.sitewards.com/)
+ */
+-->
+<layout>
+    <page_one_column_with_teaser>
+        <reference name="root">
+            <block type="core/text_list" name="sitewards.cmsteaser.teaser" as="teaser">
+                <block type="sitewards_cmsteaser/teaser" name="sitewards.cmsteaser.teaser.content" template="sitewards/cmsteaser/teaser.phtml" />
+            </block>
+        </reference>
+    </page_one_column_with_teaser>
+</layout>

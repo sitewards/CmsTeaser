@@ -1,0 +1,10 @@
+<?php $sCmsTeaserImg = $this->getImageUrl(); ?>
+<?php if(!empty($sCmsTeaserImg)): ?>
+    <br />
+    <img style="padding:1px; border:1px solid #ccc; margin:5px 0 5px 0; height:50px;"
+         src="<?php echo $sCmsTeaserImg; ?>" />
+    <input type="checkbox" name="teaser_img_src_delete" value="1" class="checkbox" id="page_teaser_img_src_delete">
+    <label for="page_teaser_img_src_delete">
+        <?php echo Mage::helper('sitewards_cmsteaser')->__('Delete Image'); ?>
+    </label>
+<?php endif; ?>

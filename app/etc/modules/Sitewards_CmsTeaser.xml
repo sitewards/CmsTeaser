@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Sitewards_CmsTeaser.xml
+ * Main module config listing:
+ *  If module is active
+ *  Which code pool module is in
+ *  All the module dependencies
+ *
+ * @category    Sitewards
+ * @package     Sitewards_CmsTeaser
+ * @copyright   Copyright (c) 2013 Sitewards GmbH (http://www.sitewards.com/)
+ */
+-->
+<config>
+    <modules>
+        <Sitewards_CmsTeaser>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <Mage_Cms />
+            </depends>
+        </Sitewards_CmsTeaser>
+    </modules>
+</config>

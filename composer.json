@@ -1,0 +1,10 @@
+{
+    "name": "sitewards/cms_teaser",
+    "license": "OSL-3.0",
+    "type": "magento-module",
+    "description": "Adds Cms template with teaser in header.",
+    "homepage": "http://www.sitewards.com",
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

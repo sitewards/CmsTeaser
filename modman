@@ -1,0 +1,6 @@
+/app/code/community/Sitewards/CmsTeaser /app/code/community/Sitewards/CmsTeaser
+/app/design/adminhtml/default/default/template/sitewards/cmsteaser /app/design/adminhtml/default/default/template/sitewards/cmsteaser
+/app/design/frontend/base/default/layout/sitewards/cmsteaser.xml /app/design/frontend/base/default/layout/sitewards/cmsteaser.xml
+/app/design/frontend/base/default/template/sitewards/cmsteaser /app/design/frontend/base/default/template/sitewards/cmsteaser
+/app/etc/modules/Sitewards_CmsTeaser.xml /app/etc/modules/Sitewards_CmsTeaser.xml
+/app/locale/de_DE/Sitewards_CmsTeaser.csv /app/locale/de_DE/Sitewards_CmsTeaser.csv
