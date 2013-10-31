@@ -74,56 +74,76 @@ class Sitewards_CmsTeaser_Model_Observer
     {
         /* @var $oCmsPage Mage_Cms_Model_Page */
         $oCmsPage = $oObserver->getObject();
-        $this->uploadImage($oCmsPage);
+        $this->processTeaserImage($oCmsPage);
     }
 
     /**
      * Using the object passed in,
-     * Upload the new image and set the attribute against the object
+     * Upload or delete Teaser image and set the attribute against the object
      *
      * @param Mage_Cms_Model_Page $oCmsPage
      */
-    protected function uploadImage($oCmsPage)
+    protected function processTeaserImage($oCmsPage)
     {
         /* @var Mage_Core_Controller_Request_Http $oRequest */
         $oRequest = Mage::app()->getRequest();
 
         $bImgDelete = $oRequest->getParam('teaser_img_src_delete');
         if ($bImgDelete == true) {
-            $sPossibleFile = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) .
-                DS . $oCmsPage->getData('teaser_img_src');
-            if (is_file($sPossibleFile)) {
-                unlink($sPossibleFile);
-            }
+            $sImagePath = $oCmsPage->getData('teaser_img_src');
+            $this->deleteImage($sImagePath);
             $oCmsPage->setData('teaser_img_src', null);
         } else {
-            if (isset($_FILES['teaser_img_src'])) {
-                $aFileInformation = $_FILES['teaser_img_src'];
+            $sImagePath = $this->uploadImage();
+            if (is_null($sImagePath)) {
+                $sImagePath = $oCmsPage->getOrigData('teaser_img_src');
+            }
+            $oCmsPage->setData('teaser_img_src', $sImagePath);
+        }
+    }
 
-                $oCmsPage->setData('teaser_img_src', $oCmsPage->getOrigData('teaser_img_src'));
-                if (!empty($aFileInformation['name']) && (file_exists($aFileInformation['tmp_name']))) {
-                    try {
-                        /* @var Varien_File_Uploader $oUploader */
-                        $oUploader = new Varien_File_Uploader('teaser_img_src');
-                        $oUploader->setAllowedExtensions(array('jpg','jpeg','gif','png')); // or pdf or anything
-                        $oUploader->setAllowRenameFiles(true);
-                        $oUploader->setFilesDispersion(false);
+    /**
+     * Delete image file by path
+     *
+     * @param string $sImagePath
+     */
+    protected function deleteImage($sImagePath)
+    {
+        $sPossibleFile = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . $sImagePath;
+        if (is_file($sPossibleFile)) {
+            unlink($sPossibleFile);
+        }
+    }
 
-                        $sNewFilePath = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS .
-                            Sitewards_CmsTeaser_Helper_Data::S_TESEAR_IMG_DIR . DS;
+    /**
+     * Upload image and return media path
+     *
+     * @return null|string
+     */
+    protected function uploadImage()
+    {
+        if (!isset($_FILES['teaser_img_src'])) {
+            return null;
+        }
+        $aFileInformation = $_FILES['teaser_img_src'];
 
-                        $oUploader->save($sNewFilePath, $aFileInformation['name']);
-                        $sUploadedFileName = $oUploader->getUploadedFileName();
+        if (!empty($aFileInformation['name']) && (file_exists($aFileInformation['tmp_name']))) {
+            try {
+                /* @var Varien_File_Uploader $oUploader */
+                $oUploader = new Varien_File_Uploader('teaser_img_src');
+                $oUploader->setAllowedExtensions(array('jpg','jpeg','gif','png')); // or pdf or anything
+                $oUploader->setAllowRenameFiles(true);
+                $oUploader->setFilesDispersion(false);
 
-                        $oCmsPage->setData(
-                            'teaser_img_src',
-                            Sitewards_CmsTeaser_Helper_Data::S_TESEAR_IMG_DIR . DS . $sUploadedFileName
-                        );
-                    } catch (Exception $oUploadException) {
-                        Mage::throwException($oUploadException->getMessage());
-                    }
-                }
+                $sNewFilePath = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS .
+                    Sitewards_CmsTeaser_Helper_Data::S_TESEAR_IMG_DIR . DS;
+
+                $oUploader->save($sNewFilePath, $aFileInformation['name']);
+                return Sitewards_CmsTeaser_Helper_Data::S_TESEAR_IMG_DIR . DS . $oUploader->getUploadedFileName();
+            } catch (Exception $oUploadException) {
+                Mage::throwException($oUploadException->getMessage());
             }
         }
+        return null;
     }
 }
